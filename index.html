@@ -2,9 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Funny</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
 </head>
 <body>
+<div class="funny">
+    <div class="funny__header">
+    <h1>Very funny page</h1>
+    <h2>Who knows, what it may contain? Click to find out...</h2>
+    </div>
+    <div class="funny__main">
+        <div class="funny__main-top-row">
+        <div class="funny__main-top-row-joke-place">
+            <form class="funny__main-top-row-joke-place-form">
+            <label>
+                <input type="text" name="jokeInput" id="input" placeholder="Input joke" class="funny__main-top-row-joke-place-form-input-text" value="">
+            </label>
+            <button class="funny__main-top-row-joke-place-form-btn" type="submit">Post joke</button>
+            </form>
+        </div>
+        <div class="funny__main-top-row-answer-place">
+            <button class="btn funny__main-top-row-answer-place-btn btn-answer">Click for answer</button>
+        </div>
+        <div class="funny__main-top-row-statistics-place">
+            <p class="funny__main-top-row-statistics-place-answer-count hidden">????: 0</p>
+            <p class="funny__main-top-row-statistics-place-rat-time hidden">????: 0</p>
+            <p class="funny__main-top-row-statistics-place-pipe-count hidden">????: 0</p>
+        </div>
+        </div>
+        <div class="funny__main-bottom-row">
+        <div class="funny__main-bottom-row-pipe-place">
+            <button class="btn funny__main-bottom-row-pipe-place-btn btn-secret">Mysterious button</button>
+        </div>
+        <div class="funny__main-bottom-row-rat-place">
+            <button class="btn funny__main-bottom-row-rat-place-btn btn-secret">Mysterious button</button>
+            <section class="funny__main-bottom-row-rat-place-content"></section>
+        </div>
+    </div>
+</div>
+</div>
 
 </body>
+<script type ='module' src="js/index.js"></script>
 </html>
