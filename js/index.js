@@ -22,15 +22,15 @@ const btnSoundOffOnText = 'Sound on';
 const btnHideRatText = 'Hide rat';
 const ratPlaceBtnShowRatText = 'Show rat';
 
-if (localStorage.getItem(answerCountKey) !== '0') {
+if (localStorage.getItem(answerCountKey) !== '0' && localStorage.getItem(answerCountKey) !== 'null') {
     let answerCount = Number(localStorage.getItem(answerCountKey));
     answerCountElem.textContent = 'Answer requested ' + answerCount + ' times';
 }
-if (localStorage.getItem(ratTimeKey) !== '0') {
+if (localStorage.getItem(ratTimeKey) !== '0' && localStorage.getItem(ratTimeKey) !== 'null') {
     let ratTime = Number(localStorage.getItem(ratTimeKey));
     ratTimeElem.textContent = 'Rat time: ' + ratTime + ' seconds';
 }
-if (localStorage.getItem(pipeCountKey) !== '0') {
+if (localStorage.getItem(pipeCountKey) !== '0' && localStorage.getItem(pipeCountKey) !== 'null') {
     let pipeCount = Number(localStorage.getItem(pipeCountKey));
     pipeCountElem.textContent = 'You heard pipe ' + pipeCount + ' times';
 }
