@@ -22,17 +22,17 @@ const btnSoundOffOnText = 'Sound on';
 const btnHideRatText = 'Hide rat';
 const ratPlaceBtnShowRatText = 'Show rat';
 
-if (localStorage.getItem(answerCountKey) !== '0'){
+if (localStorage.getItem(answerCountKey) !== '0') {
     let answerCount = Number(localStorage.getItem(answerCountKey));
-    answerCountElem.textContent = 'Answer requested ' + answerCount +' times';
+    answerCountElem.textContent = 'Answer requested ' + answerCount + ' times';
 }
-if (localStorage.getItem(ratTimeKey) !== '0'){
+if (localStorage.getItem(ratTimeKey) !== '0') {
     let ratTime = Number(localStorage.getItem(ratTimeKey));
-    ratTimeElem.textContent = 'Rat time: '+ ratTime +' seconds';
+    ratTimeElem.textContent = 'Rat time: ' + ratTime + ' seconds';
 }
-if (localStorage.getItem(pipeCountKey) !== '0'){
+if (localStorage.getItem(pipeCountKey) !== '0') {
     let pipeCount = Number(localStorage.getItem(pipeCountKey));
-    pipeCountElem.textContent = 'You heard pipe ' + pipeCount +' times';
+    pipeCountElem.textContent = 'You heard pipe ' + pipeCount + ' times';
 }
 const playFreeBird = () => {
     freeBird.loop = true;
@@ -44,7 +44,7 @@ const startCountingRatTime = () => {
         let ratTime = Number(localStorage.getItem(ratTimeKey));
         ratTime++;
         localStorage.setItem(ratTimeKey, ratTime.toString());
-        ratTimeElem.textContent = 'Rat time: '+ ratTime +' seconds';
+        ratTimeElem.textContent = 'Rat time: ' + ratTime + ' seconds';
     }, 1000);
     return timer;
 }
@@ -52,46 +52,50 @@ const stopCountingRatTime = (id) => {
     clearInterval(id);
 }
 
-const playMetalPipe = () =>{
+const playMetalPipe = () => {
     const metalPipeSound = new Audio(metalPipeSoundPath);
     metalPipeSound.play();
     return metalPipeSound;
 }
-if (localStorage.getItem(ratShownKey) === 'true'){
+if (localStorage.getItem(ratShownKey) === 'true') {
     ratPlaceBtn.textContent = ratPlaceBtnShowRatText;
 }
-function createRat (){
-    let ratUrl = 'https://gifdb.com/images/high/stationary-rat-horizontal-spin-vi7xniwe61qse4i5.gif';
-    let ratGif = document.createElement('img');
+
+function createRat() {
+    const ratUrl = 'https://gifdb.com/images/high/stationary-rat-horizontal-spin-vi7xniwe61qse4i5.gif';
+    const ratGif = document.createElement('img');
     ratGif.src = ratUrl;
     ratGif.id = 'ratSpinning';
     return ratGif;
 }
-function createSoundOffButton (){
-    let btnSoundOff = document.createElement('button');
+
+function createSoundOffButton() {
+    const btnSoundOff = document.createElement('button');
     btnSoundOff.classList.add('btn', 'funny__main-bottom-row-rat-place-btn', 'on');
     btnSoundOff.innerText = btnSoundOffOffText;
-    btnSoundOff.addEventListener('click', (event) =>{
-        if (btnSoundOff.classList.contains('on')){
+    btnSoundOff.addEventListener('click', (event) => {
+        if (btnSoundOff.classList.contains('on')) {
             freeBird.pause();
             btnSoundOff.classList.remove('on');
             btnSoundOff.classList.add('off');
             btnSoundOff.innerText = btnSoundOffOnText;
-        }else {
+        } else {
             if (btnSoundOff.classList.contains('off')) {
                 freeBird.play();
                 btnSoundOff.classList.remove('off');
                 btnSoundOff.classList.add('on');
                 btnSoundOff.innerText = btnSoundOffOffText;
             }
-        }})
+        }
+    })
     return btnSoundOff;
 }
-function createHideRatButton (ratGif, btnSoundOff, id){
-    let btnHideRat = document.createElement('button');
+
+function createHideRatButton(ratGif, btnSoundOff, id) {
+    const btnHideRat = document.createElement('button');
     btnHideRat.classList.add('btn', 'funny__main-bottom-row-rat-place-btn');
     btnHideRat.innerText = btnHideRatText;
-    btnHideRat.addEventListener('click', (event) =>{
+    btnHideRat.addEventListener('click', (event) => {
         ratGif.remove();
         btnSoundOff.remove();
         btnHideRat.remove();
@@ -102,89 +106,95 @@ function createHideRatButton (ratGif, btnSoundOff, id){
     })
     return btnHideRat;
 }
-ratPlaceBtn.addEventListener('click', (event) =>{
+
+ratPlaceBtn.addEventListener('click', (event) => {
     localStorage.setItem(ratShownKey, 'true');
-    let ratGif = createRat();
+    const ratGif = createRat();
     ratPlaceContent.append(ratGif);
     playFreeBird();
-    let id = startCountingRatTime();
-    let btnSoundOff = createSoundOffButton();
-    let btnHideRat = createHideRatButton(ratGif, btnSoundOff, id);
+    const id = startCountingRatTime();
+    const btnSoundOff = createSoundOffButton();
+    const btnHideRat = createHideRatButton(ratGif, btnSoundOff, id);
     ratPlace.appendChild(btnSoundOff);
     ratPlace.appendChild(btnHideRat);
     ratPlaceBtn.remove();
 })
- jokePlaceForm.addEventListener('submit', (event) =>{
+jokePlaceForm.addEventListener('submit', (event) => {
     event.preventDefault();
-    let inputValue = document.getElementById('input').value;
-    const postJoke = fetch('https://veryFunnyJokes.com',{
+    const inputValue = document.getElementById('input').value;
+    fetch('https://jsonplaceholder.typicode.com/posts', {
         method: 'POST',
-        mode: "no-cors",
-        body:JSON.stringify({
+        body: JSON.stringify({
             joke: inputValue
         })
-    }).catch((err) => console.log('bruh')).finally(alert('You posted a very funny joke '))
+    }).then(() => alert('You posted a very funny joke'))
+        .catch(() => alert('Your joke could not be posted, but it was very funny'))
+})
 
- })
-
-if (localStorage.getItem(pipeShownKey) === 'true'){
+if (localStorage.getItem(pipeShownKey) === 'true') {
     pipePlaceBtn.textContent = 'Click for pipe';
 }
+
 function createPipeImg() {
     let pipeImg = document.createElement('img');
     pipeImg.src = pipeImgPath;
     pipeImg.width = 600;
     pipeImg.height = 500;
-    pipeImg.addEventListener('click', (event) =>{
+    pipeImg.addEventListener('click', (event) => {
         playMetalPipe();
         let pipeCount = Number(localStorage.getItem(pipeCountKey));
         pipeCount++;
-        pipeCountElem.textContent = 'You heard pipe ' + pipeCount +' times';
-        localStorage.setItem(pipeCountKey , pipeCount.toString());
+        pipeCountElem.textContent = 'You heard pipe ' + pipeCount + ' times';
+        localStorage.setItem(pipeCountKey, pipeCount.toString());
     })
     return pipeImg;
 }
+
 function increaseAndShowPipeCount() {
     let pipeCount = Number(localStorage.getItem(pipeCountKey));
     pipeCount++;
-    pipeCountElem.textContent = 'You heard pipe ' + pipeCount +' times';
-    localStorage.setItem(pipeCountKey , pipeCount.toString());
+    pipeCountElem.textContent = 'You heard pipe ' + pipeCount + ' times';
+    localStorage.setItem(pipeCountKey, pipeCount.toString());
 }
-pipePlaceBtn.addEventListener('click', (event) =>{
+
+pipePlaceBtn.addEventListener('click', (event) => {
     localStorage.setItem(pipeShownKey, 'true');
-    let pipeImg = createPipeImg();
+    const pipeImg = createPipeImg();
     pipePlaceBtn.remove();
     pipePlace.appendChild(pipeImg);
     const metalPipeSoundForCheckingIfEnded = playMetalPipe();
     increaseAndShowPipeCount();
-    metalPipeSoundForCheckingIfEnded.addEventListener('ended', (event) =>{
+    metalPipeSoundForCheckingIfEnded.addEventListener('ended', (event) => {
         pipeImg.remove();
         pipePlaceBtn.textContent = 'Click for pipe';
         pipePlace.appendChild(pipePlaceBtn);
     })
 })
-function getAnswerImage (){
-    let answerUrl = 'https://yesno.wtf/api';
-    const answer = fetch(answerUrl).then((response) =>  response.json())
+
+function getAnswerImage() {
+    const answerUrl = 'https://yesno.wtf/api';
+    const answer = fetch(answerUrl).then((response) => response.json())
         .then((json) => json.image)
-    let answerImage = document.createElement('img');
+    const answerImage = document.createElement('img');
     answer.then((image) => answerImage.src = image);
     answerImage.width = 450;
     answerImage.height = 400;
-    answerImage.addEventListener('click', (event) =>{
+    answerImage.addEventListener('click', (event) => {
         answerImage.remove();
         answerPlace.appendChild(answerPlaceBtn);
     })
     return answerImage;
 }
+
 function increaseAndShowAnswerCount() {
     let answerCount = Number(localStorage.getItem(answerCountKey));
     answerCount++;
-    answerCountElem.textContent = 'Answer requested ' + answerCount +' times';
-    localStorage.setItem(answerCountKey , answerCount.toString());
+    answerCountElem.textContent = 'Answer requested ' + answerCount + ' times';
+    localStorage.setItem(answerCountKey, answerCount.toString());
 }
-answerPlaceBtn.addEventListener('click', (event) =>{
-    let answerImage = getAnswerImage();
+
+answerPlaceBtn.addEventListener('click', (event) => {
+    const answerImage = getAnswerImage();
     increaseAndShowAnswerCount();
     answerPlaceBtn.remove();
     answerPlace.appendChild(answerImage);
