@@ -16,7 +16,7 @@ const pipeCountKey = 'pipeCount';
 const ratShownKey = 'ratShown';
 const pipeShownKey = 'pipeShown';
 const metalPipeSoundPath = 'src/sounds/metal-pipe-falling-sound-effect.mp3';
-const pipeImgPath = 'src/pictures/metalPipe.png';
+const pipeImgPath = 'src/pictures/MetalPipe.png';
 const btnSoundOffOffText = 'Sound off';
 const btnSoundOffOnText = 'Sound on';
 const btnHideRatText = 'Hide rat';
@@ -73,7 +73,7 @@ function createSoundOffButton() {
     const btnSoundOff = document.createElement('button');
     btnSoundOff.classList.add('btn', 'funny__main-bottom-row-rat-place-btn', 'on');
     btnSoundOff.innerText = btnSoundOffOffText;
-    btnSoundOff.addEventListener('click', (event) => {
+    btnSoundOff.addEventListener('click', () => {
         if (btnSoundOff.classList.contains('on')) {
             freeBird.pause();
             btnSoundOff.classList.remove('on');
@@ -95,7 +95,7 @@ function createHideRatButton(ratGif, btnSoundOff, id) {
     const btnHideRat = document.createElement('button');
     btnHideRat.classList.add('btn', 'funny__main-bottom-row-rat-place-btn');
     btnHideRat.innerText = btnHideRatText;
-    btnHideRat.addEventListener('click', (event) => {
+    btnHideRat.addEventListener('click', () => {
         ratGif.remove();
         btnSoundOff.remove();
         btnHideRat.remove();
@@ -107,7 +107,7 @@ function createHideRatButton(ratGif, btnSoundOff, id) {
     return btnHideRat;
 }
 
-ratPlaceBtn.addEventListener('click', (event) => {
+ratPlaceBtn.addEventListener('click', () => {
     localStorage.setItem(ratShownKey, 'true');
     const ratGif = createRat();
     ratPlaceContent.append(ratGif);
@@ -140,7 +140,7 @@ function createPipeImg() {
     pipeImg.src = pipeImgPath;
     pipeImg.width = 600;
     pipeImg.height = 500;
-    pipeImg.addEventListener('click', (event) => {
+    pipeImg.addEventListener('click', () => {
         playMetalPipe();
         let pipeCount = Number(localStorage.getItem(pipeCountKey));
         pipeCount++;
@@ -157,14 +157,14 @@ function increaseAndShowPipeCount() {
     localStorage.setItem(pipeCountKey, pipeCount.toString());
 }
 
-pipePlaceBtn.addEventListener('click', (event) => {
+pipePlaceBtn.addEventListener('click', () => {
     localStorage.setItem(pipeShownKey, 'true');
     const pipeImg = createPipeImg();
     pipePlaceBtn.remove();
     pipePlace.appendChild(pipeImg);
     const metalPipeSoundForCheckingIfEnded = playMetalPipe();
     increaseAndShowPipeCount();
-    metalPipeSoundForCheckingIfEnded.addEventListener('ended', (event) => {
+    metalPipeSoundForCheckingIfEnded.addEventListener('ended', () => {
         pipeImg.remove();
         pipePlaceBtn.textContent = 'Click for pipe';
         pipePlace.appendChild(pipePlaceBtn);
@@ -179,7 +179,7 @@ function getAnswerImage() {
     answer.then((image) => answerImage.src = image);
     answerImage.width = 450;
     answerImage.height = 400;
-    answerImage.addEventListener('click', (event) => {
+    answerImage.addEventListener('click', () => {
         answerImage.remove();
         answerPlace.appendChild(answerPlaceBtn);
     })
@@ -193,7 +193,7 @@ function increaseAndShowAnswerCount() {
     localStorage.setItem(answerCountKey, answerCount.toString());
 }
 
-answerPlaceBtn.addEventListener('click', (event) => {
+answerPlaceBtn.addEventListener('click', () => {
     const answerImage = getAnswerImage();
     increaseAndShowAnswerCount();
     answerPlaceBtn.remove();
